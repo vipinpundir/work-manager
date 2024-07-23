@@ -22,9 +22,9 @@ export async function GET(request: Request, { params }: any) {
 
 // DELETE USER BY ID 
 export async function DELETE(request: Request, { params }: any) {
-    const { userId } = params;
 
     try {
+        const { userId } = params;
         await User.deleteOne({
             _id: userId,
         });
