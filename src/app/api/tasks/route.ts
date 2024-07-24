@@ -30,9 +30,11 @@ export async function POST(request: Request) {
             userId
         })
        const createdTask =  await task.save()
-       return NextResponse.json(createdTask,{
+       return NextResponse.json({
+        message: 'Successfully task added',
+        data: createdTask,
         status: 201
-       })
+    })
     } catch (error) {
         return NextResponse.json({
             message: 'Failed to create Taks !!',

@@ -20,16 +20,16 @@ const Navbar = () => {
                 </div>
                 <div className="nav-items hidden md:block">
                     <ol className='flex gap-20 '>
-                        <li>Home</li>
-                        <li>Add Task</li>
-                        <li>Show Task</li>
+                        <Link href="/">Home</Link>
+                        <Link href="/add-task">Add Task</Link>
+                        <Link href="/show-task">Show Task</Link>
                     </ol>
                 </div>
                 <div className="nav-actions flex gap-5">
                     <Button asChild>
                         <Link href="/login">Login</Link>
                     </Button>
-                    <Button  variant="secondary" asChild>
+                    <Button variant="secondary" asChild>
                         <Link href="/signup">Signup</Link>
                     </Button>
                     <div className="flex md:hidden ui-sheet">
@@ -38,10 +38,10 @@ const Navbar = () => {
                             <SheetContent >
                                 <SheetDescription></SheetDescription>
                                 <SheetTitle>Work Manager</SheetTitle>
-                                <ol className=''>
-                                    <li>Home</li>
-                                    <li>Add Task</li>
-                                    <li>Show Task</li>
+                                <ol>
+                                    <li> <Link href="/">Home</Link> </li>
+                                    <li> <Link href="/add-task">Add Task</Link> </li>
+                                    <li> <Link href="/show-task">Show Task</Link></li>
                                 </ol>
                             </SheetContent>
                         </Sheet>
