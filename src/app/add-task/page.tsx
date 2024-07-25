@@ -37,8 +37,11 @@ const TaskForm = () => {
     const onSubmit = async (data: any) => {
         try {
             const response = await taskService.addTask(data);
-            toast.success(response.message); 
-            console.log(response,'res...')
+            if (response.status){
+                toast.success(response.message);
+            }else{
+                toast.error(response.message);
+            }
         } catch (error) {
             console.error('Failed to add task:', error);
         }

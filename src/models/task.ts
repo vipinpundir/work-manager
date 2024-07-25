@@ -21,7 +21,7 @@ const TaskSachema = new mongoose.Schema({
     },
     userId: {
         type: mongoose.Types.ObjectId,
-        require: true
+        required: true
     }
 
 
