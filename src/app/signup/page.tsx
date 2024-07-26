@@ -32,13 +32,9 @@ const Signup = () => {
     const onSubmit = async (data: any) => {
         try {
             const response = await userService.signup(data);
-            if (response.status){
-                toast.success("User is registered !!");
-            }else{
-                toast.error("Failed to create user");
-            }
-        } catch (error) {
-            console.error('Internal server error', error);
+            toast.success("User registered !!");
+        } catch (error: any) {
+           toast.error(error.response.data.message)
         }
     }
 

@@ -14,8 +14,12 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { toast } from 'react-hot-toast';
+import userService from '@/services/userService'
+import { useRouter } from 'next/navigation'
+
 
 const Login = () => {
+    const router = useRouter()
 
     const form = useForm({
         defaultValues: {
@@ -25,17 +29,13 @@ const Login = () => {
     })
 
     const onSubmit = async (data: any) => {
-        console.log(data,'loginData')
-        // try {
-        //     const response = await taskService.addTask(data);
-        //     if (response.status){
-        //         toast.success(response.message);
-        //     }else{
-        //         toast.error(response.message);
-        //     }
-        // } catch (error) {
-        //     console.error('Failed to add task:', error);
-        // }
+        try {
+            const response = await userService.login(data);
+            toast.success("Login Sucessfully !!");
+            router.push('/')
+        } catch (error: any) {
+           toast.error(error.response.data.message)
+        }
     }
 
     return (

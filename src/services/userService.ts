@@ -7,17 +7,15 @@ const signup = async (signupData: any) => {
     const response = await axios.post(`${API_URL}/users`, signupData);
     return response;
   } catch (error) {
-    console.error('Error in signup user:', error);
     throw error;
   }
 };
 
 const login = async (loginData: any) => {
   try {
-    const response = await axios.post(`${API_URL}/users`, loginData);
+    const response = await axios.post(`${API_URL}/login`, loginData);
     return response;
   } catch (error) {
-    console.error('Error in signup user:', error);
     throw error;
   }
 };
