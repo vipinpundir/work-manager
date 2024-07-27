@@ -1,4 +1,5 @@
-import React from 'react'
+"use client"
+import React, { useContext } from 'react'
 import {
     Sheet,
     SheetContent,
@@ -10,13 +11,20 @@ import {
 import { Menu } from 'lucide-react'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { UserContext } from '@/context/userContext'
+import userService from '@/services/userService'
+import toast from 'react-hot-toast'
 
 const Navbar = () => {
+
+    const context = useContext(UserContext)
+
     return (
         <nav>
             <div className="flex p-5 text-white justify-between items-center bg-gray-800">
                 <div className="nav-logo">
-                    <h1>Work Manager</h1>
+                    <Link href="/"><h1>Work Manager</h1></Link>
+
                 </div>
                 <div className="nav-items hidden md:block">
                     <ol className='flex gap-20 '>

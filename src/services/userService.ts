@@ -20,7 +20,19 @@ const login = async (loginData: any) => {
   }
 };
 
+
+
+const currentUser = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/current`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
-    signup,
-    login,
+  signup,
+  login,
+  currentUser,
 };
