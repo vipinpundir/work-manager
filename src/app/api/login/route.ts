@@ -37,14 +37,13 @@ export async function POST(request: Request) {
         // Set cookie 
         response.cookies.set("authToken", jwtToken, {
             httpOnly: true,
-            maxAge: 1,
         });
 
         return response;
 
     } catch (error) {
         return NextResponse.json({
-            message: "Error in login",
+            message: "Internal server error",
         }, { status: 500 })
 
     }
