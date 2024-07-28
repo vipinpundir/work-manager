@@ -35,15 +35,19 @@ const TaskForm = () => {
     })
 
     const onSubmit = async (data: any) => {
-        try {
-            const response = await taskService.addTask(data);
-            if (response.status) {
-                toast.success(response.message);
-            } else {
-                toast.error(response.message);
+        if (data?.title?.length > 0 && data?.content?.length > 0) {
+            try {
+                const response = await taskService.addTask(data);
+                if (response.status) {
+                    toast.success(response.message);
+                } else {
+                    toast.error(response.message);
+                }
+            } catch (error) {
+                console.error('Failed to add task:', error);
             }
-        } catch (error) {
-            console.error('Failed to add task:', error);
+        } else {
+            toast.error("Enter correct details.")
         }
     }
 

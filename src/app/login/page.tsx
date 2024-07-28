@@ -29,13 +29,18 @@ const Login = () => {
     })
 
     const onSubmit = async (data: any) => {
-        try {
-            const response = await userService.login(data);
-            toast.success("Login Sucessfully !!");
-            router.push('/')
-        } catch (error: any) {
-           toast.error(error.response.data.message)
+        if (data?.email?.length > 0 && data?.password?.length > 3){
+            try {
+                const response = await userService.login(data);
+                toast.success("Login Sucessfully !!");
+                router.push('/')
+            } catch (error: any) {
+               toast.error(error.response.data.message)
+            }
+        }else{
+           toast.error("Enter correct details.")
         }
+       
     }
 
     return (
