@@ -20,6 +20,9 @@ export async function GET(request: Request) {
         return NextResponse.json(user)
 
     } catch (error) {
-        console.error('JWT Verification Error:', error);
+        // console.error('JWT Verification Error:', error);
+        return NextResponse.json({
+            message: "Token not found",
+        }, { status: 404 })
     }
 }

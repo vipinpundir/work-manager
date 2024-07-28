@@ -1,6 +1,6 @@
 "use client"
 import userService from '@/services/userService';
-import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import { createContext, useState, ReactNode, useEffect } from 'react';
 
 export const UserContext = createContext({});
 

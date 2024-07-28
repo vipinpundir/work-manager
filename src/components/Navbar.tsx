@@ -4,7 +4,6 @@ import {
     Sheet,
     SheetContent,
     SheetDescription,
-    SheetHeader,
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
@@ -12,13 +11,11 @@ import { Menu } from 'lucide-react'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { UserContext } from '@/context/userContext'
-import userService from '@/services/userService'
-import toast from 'react-hot-toast'
 
 const Navbar = () => {
 
     const context = useContext(UserContext)
-
+    console.log(context,'context')
     return (
         <nav>
             <div className="flex p-5 text-white justify-between items-center bg-gray-800">
@@ -37,7 +34,7 @@ const Navbar = () => {
                     <Button asChild>
                         <Link href="/login">Login</Link>
                     </Button>
-                    <Button variant="secondary" asChild>
+                    <Button variant="secondary" className='hidden md:flex' asChild>
                         <Link href="/signup">Signup</Link>
                     </Button>
                     <div className="flex md:hidden ui-sheet">
