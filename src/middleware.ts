@@ -13,8 +13,13 @@ export async function middleware(request: NextRequest) {
         const authToken = request.cookies.get("authToken")?.value || ''
         const secretKey = new TextEncoder().encode(process.env.SECRET_KEY || '');
         await jwtVerify(authToken, secretKey);
-     
+
     } catch (error) {
+        if (request.nextUrl.pathname.startsWith("/api")) {
+            return NextResponse.json({
+                message: 'Access Denied.',
+            }, { status: 401 });
+        }
         return NextResponse.redirect(new URL('/login', request.url));
     }
 

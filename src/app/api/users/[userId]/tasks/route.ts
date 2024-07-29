@@ -11,12 +11,10 @@ export async function GET(request: Request, { params }: any) {
         return NextResponse.json(tasks);
 
     } catch (error) {
-
+        console.log(error)
         return NextResponse.json({
-            message: "Error in finding user task  !! ",
-            success: false,
-
-        })
+            message: "Internal server error ",
+        },{status: 500})
 
     }
 }

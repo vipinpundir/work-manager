@@ -12,6 +12,17 @@ const addTask = async (taskData: any) => {
   }
 };
 
+const getTasksOfUserId = async (userId: string) => {
+  try {
+    const response = await axios.get(`${API_URL}/users/${userId}/tasks`);
+    return response
+  } catch (error) {
+    console.error('Error adding task:', error);
+    throw error;
+  }
+};
+
 export default {
   addTask,
+  getTasksOfUserId,
 };

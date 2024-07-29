@@ -7,7 +7,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
-import { Menu } from 'lucide-react'
+import { CircleUserRound, Menu } from 'lucide-react'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { UserContext } from '@/context/userContext'
@@ -15,7 +15,6 @@ import { UserContext } from '@/context/userContext'
 const Navbar = () => {
 
     const context = useContext(UserContext)
-    console.log(context,'context')
     return (
         <nav>
             <div className="flex p-5 text-white justify-between items-center bg-gray-800">
@@ -31,12 +30,14 @@ const Navbar = () => {
                     </ol>
                 </div>
                 <div className="nav-actions flex gap-5">
-                    <Button asChild>
-                        <Link href="/login">Login</Link>
-                    </Button>
-                    <Button variant="secondary" className='hidden md:flex' asChild>
-                        <Link href="/signup">Signup</Link>
-                    </Button>
+                    {context?.user ? <><CircleUserRound /></> 
+                    : <>
+                        <Button asChild>
+                            <Link href="/login">Login</Link>
+                        </Button>
+                        <Button variant="secondary" className='hidden md:flex' asChild>
+                            <Link href="/signup">Signup</Link>
+                        </Button></>}
                     <div className="flex md:hidden ui-sheet">
                         <Sheet>
                             <SheetTrigger><Menu /></SheetTrigger>

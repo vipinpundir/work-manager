@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import React from 'react'
+import React, { useContext } from 'react'
 import TaskImage from '@/assets/task.png'
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
@@ -22,19 +22,21 @@ import {
 } from "@/components/ui/select"
 import taskService from '@/services/taskService'
 import { toast } from 'react-hot-toast';
-
+import { UserContext } from '@/context/userContext'
 
 const TaskForm = () => {
-
+    const {user} = useContext(UserContext)
     const form = useForm({
         defaultValues: {
             title: "",
             content: "",
-            status: "Pending",
+            status: "pending",
         },
     })
 
     const onSubmit = async (data: any) => {
+        data["userId"] = user?._id
+        console.log(data,'data',user._id)
         if (data?.title?.length > 0 && data?.content?.length > 0) {
             try {
                 const response = await taskService.addTask(data);
@@ -101,8 +103,8 @@ const TaskForm = () => {
                                             <SelectValue placeholder="Select Status" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="Pending">Pending</SelectItem>
-                                            <SelectItem value="Completed">Completed</SelectItem>
+                                            <SelectItem value="pending">Pending</SelectItem>
+                                            <SelectItem value="complete">Completed</SelectItem>
                                         </SelectContent>
                                     </Select>
                                     <FormMessage />

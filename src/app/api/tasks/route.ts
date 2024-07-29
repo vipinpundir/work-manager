@@ -22,12 +22,13 @@ export async function GET(request: Request) {
 
 // CREATE TASK 
 export async function POST(request: Request) {
-    const {title, content, userId} = await request.json()
+    const {title, content, status, userId} = await request.json()
     try {
         const task = new Task({
             title,
             content,
-            userId
+            status,
+            userId,
         })
        const createdTask =  await task.save()
        return NextResponse.json({

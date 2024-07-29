@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import React from 'react'
+import React, { useContext } from 'react'
 import LoginImage from '@/assets/login.png'
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
@@ -16,9 +16,10 @@ import { Input } from "@/components/ui/input"
 import { toast } from 'react-hot-toast';
 import userService from '@/services/userService'
 import { useRouter } from 'next/navigation'
-
+import { UserContext } from '@/context/userContext'
 
 const Login = () => {
+    const context = useContext(UserContext)
     const router = useRouter()
 
     const form = useForm({
@@ -33,9 +34,10 @@ const Login = () => {
             try {
                 const response = await userService.login(data);
                 toast.success("Login Sucessfully !!");
+                context.setUser(response?.data)
                 router.push('/')
             } catch (error: any) {
-               toast.error(error.response.data.message)
+               toast.error(error?.response?.data?.message)
             }
         }else{
            toast.error("Enter correct details.")
