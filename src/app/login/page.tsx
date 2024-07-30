@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import LoginImage from '@/assets/login.png'
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
@@ -18,10 +18,12 @@ import userService from '@/services/userService'
 import { useRouter } from 'next/navigation'
 import { UserContext } from '@/context/userContext'
 import Link from 'next/link'
+import { Loader } from 'lucide-react'
 
 const Login = () => {
     const context = useContext(UserContext)
     const router = useRouter()
+    const [loading, setLoading] = useState(false)
 
     const form = useForm({
         defaultValues: {
@@ -32,6 +34,7 @@ const Login = () => {
 
     const onSubmit = async (data: any) => {
         if (data?.email?.length > 0 && data?.password?.length > 3) {
+            setLoading(true)
             try {
                 const response = await userService.login(data);
                 toast.success("Login Sucessfully !!");
@@ -39,6 +42,8 @@ const Login = () => {
                 router.push('/')
             } catch (error: any) {
                 toast.error(error?.response?.data?.message)
+            } finally {
+                setLoading(false)
             }
         } else {
             toast.error("Enter correct details.")
@@ -78,15 +83,17 @@ const Login = () => {
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Enter your password" {...field} />
+                                        <Input onFocus='border' placeholder="Enter your password" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
 
-                        <Button className='w-full' type="submit">Login</Button>
-                <p className='text-center' >New to Here? <Link className='text-blue-700' href="/signup">Create an account</Link> </p>
+                        <Button disabled={loading} className='w-full' type="submit">
+                            {loading ? <p className='flex items-center'>wait... <span className='animate-spin' ><Loader /></span></p> : 'Login'}
+                        </Button>
+                        <p className='text-center' >New to Here? <Link className='text-blue-700' href="/signup">Create an account</Link> </p>
                     </form>
                 </Form>
             </div>

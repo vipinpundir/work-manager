@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import SignupImage from '@/assets/signup.svg'
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
@@ -16,8 +16,10 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from 'react-hot-toast';
 import userService from '@/services/userService'
+import { Loader } from 'lucide-react'
 
 const Signup = () => {
+    const [loading, setLoading] = useState(false)
 
     const form = useForm({
         defaultValues: {
@@ -31,6 +33,7 @@ const Signup = () => {
 
     const onSubmit = async (data: any) => {
         if (data?.email?.length > 0 && data?.password?.length > 3 && data?.name?.length > 0) {
+            setLoading(true)
             try {
                 const response = await userService.signup(data);
                 if (response.status === 201) {
@@ -38,6 +41,8 @@ const Signup = () => {
                 }
             } catch (error: any) {
                 toast.error(error.response.data.message)
+            }finally{
+                setLoading(false)
             }
         } else {
             toast.error("Enter correct details.")
@@ -126,8 +131,10 @@ const Signup = () => {
                             )}
                         />
 
-                        <Button className='w-full' type="submit">Signup</Button>
-                    </form>
+                        <Button disabled={loading} className='w-full' type="submit">
+                            {loading ? <p className='flex items-center'>wait... <span className='animate-spin' ><Loader /></span></p> : 'Submit'}
+                        </Button>                    
+                        </form>
                 </Form>
 
             </div>

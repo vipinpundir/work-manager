@@ -16,7 +16,6 @@ import Image from 'next/image'
 const Navbar = () => {
 
     const context = useContext(UserContext)
-    console.log(context?.user)
     return (
         <nav>
             <div className="flex p-2 md:p-3 text-white justify-between items-center bg-gray-800">

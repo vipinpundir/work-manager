@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import TaskImage from '@/assets/task.png'
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
@@ -23,9 +23,12 @@ import {
 import taskService from '@/services/taskService'
 import { toast } from 'react-hot-toast';
 import { UserContext } from '@/context/userContext'
+import { Loader } from 'lucide-react'
 
 const TaskForm = () => {
-    const {user} = useContext(UserContext)
+    const { user } = useContext(UserContext)
+    const [loading, setLoading] = useState(false)
+
     const form = useForm({
         defaultValues: {
             title: "",
@@ -36,8 +39,9 @@ const TaskForm = () => {
 
     const onSubmit = async (data: any) => {
         data["userId"] = user?._id
-        console.log(data,'data',user._id)
+        console.log(data, 'data', user._id)
         if (data?.title?.length > 0 && data?.content?.length > 0) {
+            setLoading(true)
             try {
                 const response = await taskService.addTask(data);
                 if (response.status) {
@@ -47,6 +51,8 @@ const TaskForm = () => {
                 }
             } catch (error) {
                 console.error('Failed to add task:', error);
+            } finally {
+                setLoading(false)
             }
         } else {
             toast.error("Enter correct details.")
@@ -112,8 +118,10 @@ const TaskForm = () => {
                             )}
                         />
 
-                        <Button className='w-full' type="submit">Add Task</Button>
-                    </form>
+                        <Button disabled={loading} className='w-full' type="submit">
+                            {loading ? <p className='flex items-center'>wait... <span className='animate-spin' ><Loader /></span></p> : 'Add Task'}
+                        </Button>                    
+                        </form>
                 </Form>
 
             </div>
