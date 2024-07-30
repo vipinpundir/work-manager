@@ -7,20 +7,22 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
-import { CircleUserRound, Menu } from 'lucide-react'
+import { CircleUserRound, House, ListPlus, Menu, NotebookTabs } from 'lucide-react'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { UserContext } from '@/context/userContext'
-
+import logo from '@/assets/logo.png'
+import Image from 'next/image'
 const Navbar = () => {
 
     const context = useContext(UserContext)
+    console.log(context?.user)
     return (
         <nav>
-            <div className="flex p-5 text-white justify-between items-center bg-gray-800">
-                <div className="nav-logo">
+            <div className="flex p-2 md:p-3 text-white justify-between items-center bg-gray-800">
+                <div className="nav-logo flex items-center gap-1">
+                    <Image src={logo} alt='demo' width={50} height={50} />
                     <Link href="/"><h1>Work Manager</h1></Link>
-
                 </div>
                 <div className="nav-items hidden md:block">
                     <ol className='flex gap-20 '>
@@ -29,25 +31,29 @@ const Navbar = () => {
                         <Link href="/show-task">Show Task</Link>
                     </ol>
                 </div>
-                <div className="nav-actions flex gap-5">
-                    {context?.user ? <><CircleUserRound /></> 
-                    : <>
-                        <Button asChild>
-                            <Link href="/login">Login</Link>
-                        </Button>
-                        <Button variant="secondary" className='hidden md:flex' asChild>
-                            <Link href="/signup">Signup</Link>
-                        </Button></>}
+                <div className="nav-actions flex gap-5 items-center">
+                    {context?.user ? <> <p className='hidden md:flex' >{context?.user?.name}</p> <CircleUserRound size={36} /></>
+                        : <>
+                            <Button asChild>
+                                <Link href="/login">Login</Link>
+                            </Button>
+                            <Button variant="secondary" className='hidden md:flex' asChild>
+                                <Link href="/signup">Signup</Link>
+                            </Button></>}
                     <div className="flex md:hidden ui-sheet">
                         <Sheet>
-                            <SheetTrigger><Menu /></SheetTrigger>
+                            <SheetTrigger><Menu size={36} /></SheetTrigger>
                             <SheetContent >
                                 <SheetDescription></SheetDescription>
-                                <SheetTitle>Work Manager</SheetTitle>
-                                <ol>
-                                    <li> <Link href="/">Home</Link> </li>
-                                    <li> <Link href="/add-task">Add Task</Link> </li>
-                                    <li> <Link href="/show-task">Show Task</Link></li>
+                                <SheetTitle className='mb-3' >
+                                    <CircleUserRound size={36} />
+                                    {context?.user ? <><p>Nane: {context?.user?.name} </p>
+                                        <p>Email: {context?.user?.email} </p></> : 'login to see more details.'}
+                                </SheetTitle>
+                                <ol className='flex flex-col gap-2' >
+                                    <li> <Link className='flex gap-1' href="/"> <House /> Home</Link> </li>
+                                    <li> <Link className='flex gap-1' href="/add-task"> <ListPlus /> Add Task</Link> </li>
+                                    <li> <Link className='flex gap-1' href="/show-task"> <NotebookTabs /> Show Task</Link> </li>
                                 </ol>
                             </SheetContent>
                         </Sheet>
