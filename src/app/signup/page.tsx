@@ -17,6 +17,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { toast } from 'react-hot-toast';
 import userService from '@/services/userService'
 import { Loader } from 'lucide-react'
+import { SubmitData } from '@/types'
 
 const Signup = () => {
     const [loading, setLoading] = useState(false)
@@ -31,7 +32,7 @@ const Signup = () => {
         },
     })
 
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (data: SubmitData) => {
         if (data?.email?.length > 0 && data?.password?.length > 3 && data?.name?.length > 0) {
             setLoading(true)
             try {
@@ -47,7 +48,6 @@ const Signup = () => {
         } else {
             toast.error("Enter correct details.")
         }
-
     }
 
     return (

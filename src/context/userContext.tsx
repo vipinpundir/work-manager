@@ -1,13 +1,19 @@
 "use client"
 import Spinner from '@/components/Spinner';
 import userService from '@/services/userService';
+import { User, UserContextState } from '@/types';
 import { createContext, useState, ReactNode, useEffect } from 'react';
 
-export const UserContext = createContext({});
+const defaultUserContextState: UserContextState = {
+  user: null,
+  setUser: () => {}, 
+};
+export const UserContext = createContext<UserContextState>(defaultUserContextState);
+
 
 // context provider 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState(undefined);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,7 +22,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         const response = await userService.currentUser();
         setUser(response?.data)
       } catch (error) {
-        setUser(undefined)
+        setUser(null)
       }finally{
         setLoading(false)
       }

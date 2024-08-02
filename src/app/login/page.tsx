@@ -19,20 +19,21 @@ import { useRouter } from 'next/navigation'
 import { UserContext } from '@/context/userContext'
 import Link from 'next/link'
 import { Loader } from 'lucide-react'
+import { LoginData } from '@/types'
 
 const Login = () => {
     const context = useContext(UserContext)
     const router = useRouter()
     const [loading, setLoading] = useState(false)
 
-    const form = useForm({
+    const form = useForm<LoginData>({
         defaultValues: {
             email: "",
             password: "",
         },
     })
 
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (data: LoginData) => {
         if (data?.email?.length > 0 && data?.password?.length > 3) {
             setLoading(true)
             try {
@@ -83,7 +84,7 @@ const Login = () => {
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
-                                        <Input onFocus='border' placeholder="Enter your password" {...field} />
+                                        <Input placeholder="Enter your password" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

@@ -24,12 +24,13 @@ import taskService from '@/services/taskService'
 import { toast } from 'react-hot-toast';
 import { UserContext } from '@/context/userContext'
 import { Loader } from 'lucide-react'
+import { TaskData } from '@/types'
 
 const TaskForm = () => {
     const { user } = useContext(UserContext)
     const [loading, setLoading] = useState(false)
 
-    const form = useForm({
+    const form = useForm<TaskData>({
         defaultValues: {
             title: "",
             content: "",
@@ -37,9 +38,9 @@ const TaskForm = () => {
         },
     })
 
-    const onSubmit = async (data: any) => {
-        data["userId"] = user?._id
-        console.log(data, 'data', user._id)
+    const onSubmit = async (data: TaskData) => {
+        data.userId = user?._id || ''
+        console.log(data, 'data', user?._id)
         if (data?.title?.length > 0 && data?.content?.length > 0) {
             setLoading(true)
             try {
