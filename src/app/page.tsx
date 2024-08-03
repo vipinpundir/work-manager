@@ -1,8 +1,42 @@
-
+import Image from "next/image";
+import Link from "next/link";
+import managerImage from '@/assets/manager.png'
 export default function Home() {
   return (
     <section className="">
-      <h1>Work Manager</h1>
+      <div className="mx-auto">
+        <header className="flex flex-col-reverse items-center justify-center md:flex-row">
+          <div className=''>
+            <Image priority={true} src={managerImage} alt='Task Image' width={700} height={500} />
+          </div>
+          <div className="text-center">
+            <h1 className="text-4xl font-bold mb-4">Welcome to Work Manager</h1>
+            <p className="text-xl text-gray-600 mb-6">
+              Manage your work efficiently and effortlessly
+            </p>
+            <Link href="/add-task" > <button className="bg-gray-800 text-white py-2 px-4 rounded transition duration-300">
+              Get Started
+            </button> </Link>
+          </div>
+        </header>
+        <section className="text-center mb-5">
+          <h2 className="text-3xl font-semibold mb-8">Features of Task Manager</h2>
+          <div className="flex justify-evenly gap-5 flex-wrap md:flex-nowrap">
+            <div className="w-full p-2 md:p-5 rounded-lg bg-gray-200 ">
+              <h3 className="text-2xl font-bold mb-2">Easy Task Management</h3>
+              <p>Organize and prioritize your tasks efficiently.</p>
+            </div>
+            <div className="w-full p-2 md:p-5 rounded-lg bg-gray-200 ">
+              <h3 className="text-2xl font-bold mb-2">Task Categories</h3>
+              <p>Work together with your team seamlessly.</p>
+            </div>
+            <div className="w-full p-2 md:p-5 rounded-lg bg-gray-200 ">
+              <h3 className="text-2xl font-bold mb-2">Due Date Reminders</h3>
+              <p>Track your time to stay on schedule.</p>
+            </div>
+          </div>
+        </section>
+      </div>
     </section>
   );
 }
