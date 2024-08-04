@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api'; // Replace with your API base URL
+const API_URL = process.env.API_URL
 
 const addTask = async (taskData: any) => {
   try {
