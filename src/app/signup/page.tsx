@@ -41,7 +41,7 @@ const Signup = () => {
                     toast.success("User registered !!");
                 }
             } catch (error: any) {
-                toast.error(error.response.data.message)
+                toast.error(error?.response?.data?.message || 'Server Error')
             }finally{
                 setLoading(false)
             }
