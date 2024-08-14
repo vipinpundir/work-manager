@@ -55,7 +55,7 @@ const Login = () => {
     return (
         <section className='flex flex-col items-center justify-center my-5 md:flex-row-reverse'>
 
-            <div className=''>
+            <div className='w-auto'>
                 <Image priority={true} src={LoginImage} alt='Task Image' width={500} height={500} />
             </div>
 
