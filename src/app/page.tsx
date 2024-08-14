@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import managerImage from '@/assets/manager.png'
+import { Calendar, CircleCheckBig, List } from "lucide-react";
 export default function Home() {
   return (
     <section className="">
@@ -22,16 +23,16 @@ export default function Home() {
         <section className="text-center mb-5">
           <h2 className="text-3xl font-semibold mb-8">Features of Task Manager</h2>
           <div className="flex justify-evenly gap-5 flex-wrap md:flex-nowrap">
-            <div className="w-full p-2 md:p-5 rounded-lg bg-gray-200 ">
-              <h3 className="text-2xl font-bold mb-2">Easy Task Management</h3>
+            <div className="w-full p-2 py-5 md:p-5 rounded-lg bg-gray-200 ">
+              <h3 className="text-2xl font-bold mb-2 flex flex-col items-center gap-4"><CircleCheckBig strokeWidth={3} /> Easy Task Management</h3>
               <p>Organize and prioritize your tasks efficiently.</p>
             </div>
-            <div className="w-full p-2 md:p-5 rounded-lg bg-gray-200 ">
-              <h3 className="text-2xl font-bold mb-2">Task Categories</h3>
+            <div className="w-full p-2 py-5 md:p-5 rounded-lg bg-gray-200 ">
+              <h3 className="text-2xl font-bold mb-2 flex flex-col items-center gap-4"><List strokeWidth={3} /> Task Categories</h3>
               <p>Work together with your team seamlessly.</p>
             </div>
-            <div className="w-full p-2 md:p-5 rounded-lg bg-gray-200 ">
-              <h3 className="text-2xl font-bold mb-2">Due Date Reminders</h3>
+            <div className="w-full p-2 py-5 md:p-5 rounded-lg bg-gray-200 ">
+              <h3 className="text-2xl font-bold mb-2 flex flex-col items-center gap-4"><Calendar strokeWidth={3} /> Due Date Reminders</h3>
               <p>Track your time to stay on schedule.</p>
             </div>
           </div>
