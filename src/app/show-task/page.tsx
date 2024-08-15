@@ -1,8 +1,11 @@
 "use client"
+import { Button } from '@/components/ui/button';
 import { UserContext } from '@/context/userContext';
 import taskService from '@/services/taskService';
 import { TaskData } from '@/types';
+import { CircleCheckBig, Clock7, X } from 'lucide-react';
 import React, { useContext, useEffect, useState } from 'react'
+import toast from 'react-hot-toast';
 
 const ShowTask = () => {
   const { user } = useContext(UserContext)
@@ -12,6 +15,18 @@ const ShowTask = () => {
     try {
       const response = await taskService.getTasksOfUserId(userId);
       setTasks(response?.data?.reverse())
+    } catch (error) {
+
+    }
+  }
+
+  const deleteTask = async (userId: string) => {
+    try {
+      const response = await taskService.deleteTask(userId);
+      toast.success(response?.data?.message)
+      if (user) {
+        fetchTasks(user._id)
+      }
     } catch (error) {
 
     }
@@ -38,13 +53,19 @@ const ShowTask = () => {
     <section className='md:w-3/5 m-auto'>
       <p className='text-3xl font-semibold'>Your tasks ({tasks.length}) </p>
       {tasks?.map((task: TaskData) => (
-        <div key={task._id} className={`text-white p-2 mt-3 rounded-md ${task.status == 'complete' ? "bg-green-800" : "bg-gray-800"}`}>
-          <h3 className='text-xl font-semibold mb-1'>{task.title}</h3>
+        <div key={task._id} className='flex items-center gap-5'>
+        {task.status == 'complete' ? <CircleCheckBig size={32} />  : <Clock7 size={32} />}
+        <div className={`text-white p-2 mt-3 rounded-md w-full ${task.status == 'complete' ? "bg-green-800" : "bg-gray-800"}`}>
+         <div className="flex justify-between">
+         <h3 className='text-xl font-semibold mb-1'>{task.title}</h3> 
+         <span onClick={()=>deleteTask(task._id)} className='flex justify-center items-center cursor-pointer bg-gray-950 rounded-full h-8 w-8'><X size={22}/></span>
+         </div>
           <p>{task.content}</p>
           <span className='flex justify-between'>
             <p>Status: <strong>{task.status}</strong> </p>
             <p>Date: <strong>{formatDate(task.addedDate)}</strong> </p>
           </span>
+        </div>
         </div>
       ))}
     </section>

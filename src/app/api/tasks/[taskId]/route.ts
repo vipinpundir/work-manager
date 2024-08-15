@@ -56,14 +56,11 @@ export async function DELETE(request: Request, { params }: any) {
         })
         return NextResponse.json({
             message: "Task deleted !! ",
-            success: true,
-        });
+        }, { status: 200 });
 
     } catch (error) {
         return NextResponse.json({
-            message: "Error in deleting task !! ",
-            success: false,
-
-        })
+            message: 'Internal server error.',
+        }, { status: 500 });
     }
 }
