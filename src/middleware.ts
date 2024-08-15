@@ -5,7 +5,11 @@ import { jwtVerify } from 'jose';
 // THIS FUNCTION RUN WHEN ROUTE MATCHED 
 export async function middleware(request: NextRequest) {
 
-    if ((request.nextUrl.pathname === "/api/login") || (request.nextUrl.pathname === "/api/current")) {
+    if (
+        (request.nextUrl.pathname === "/api/login") || 
+        (request.nextUrl.pathname === "/api/signup") ||
+        (request.nextUrl.pathname === "/api/current")
+    ) {
         return;
     }
 

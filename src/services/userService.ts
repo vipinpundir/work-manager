@@ -4,7 +4,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const signup = async (signupData: any) => {
   try {
-    const response = await axios.post(`${API_URL}/users`, signupData);
+    const response = await axios.post(`${API_URL}/signup`, signupData);
     return response;
   } catch (error) {
     throw error;
