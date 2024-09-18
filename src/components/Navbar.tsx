@@ -6,6 +6,7 @@ import {
     SheetDescription,
     SheetTitle,
     SheetTrigger,
+    SheetClose
 } from "@/components/ui/sheet"
 import { CircleUserRound, House, ListPlus, Menu, NotebookTabs } from 'lucide-react'
 import Link from "next/link"
@@ -44,15 +45,33 @@ const Navbar = () => {
                             <SheetTrigger><Menu size={36} /></SheetTrigger>
                             <SheetContent >
                                 <SheetDescription></SheetDescription>
-                                <SheetTitle className='mb-3' >
+                                <SheetTitle className='mb-3 text-sm' >
                                     <CircleUserRound size={36} />
-                                    {context?.user ? <><p>Nane: {context?.user?.name} </p>
+                                    {context?.user ? <><p>Name: {context?.user?.name} </p>
                                         <p>Email: {context?.user?.email} </p></> : 'login to see more details.'}
                                 </SheetTitle>
                                 <ol className='flex flex-col gap-2' >
-                                    <li> <Link className='flex gap-1' href="/"> <House /> Home</Link> </li>
-                                    <li> <Link className='flex gap-1' href="/add-task"> <ListPlus /> Add Task</Link> </li>
-                                    <li> <Link className='flex gap-1' href="/show-task"> <NotebookTabs /> Show Task</Link> </li>
+                                    <li>
+                                        <SheetClose asChild>
+                                            <Link className='flex gap-1' href="/">
+                                                <House /> Home
+                                            </Link>
+                                        </SheetClose>
+                                    </li>
+                                    <li>
+                                        <SheetClose asChild>
+                                            <Link className='flex gap-1' href="/add-task">
+                                                <ListPlus /> Add Task
+                                            </Link>
+                                        </SheetClose>
+                                    </li>
+                                    <li>
+                                        <SheetClose asChild>
+                                            <Link className='flex gap-1' href="/show-task">
+                                                <NotebookTabs /> Show Task
+                                            </Link>
+                                        </SheetClose>
+                                    </li>
                                 </ol>
                             </SheetContent>
                         </Sheet>

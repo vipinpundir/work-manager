@@ -38,8 +38,8 @@ const Login = () => {
             setLoading(true)
             try {
                 const response = await userService.login(data);
-                toast.success("Login Sucessfully !!");
                 context.setUser(response?.data)
+                toast.success("Login Sucessfully !!");
                 router.push('/')
             } catch (error: any) {
                 toast.error(error?.response?.data?.message || 'Server Error')
