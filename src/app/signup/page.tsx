@@ -39,6 +39,14 @@ const Signup = () => {
                 const response = await userService.signup(data);
                 if (response.status === 201) {
                     toast.success("User registered !!");
+                      // Reset the form after successful submission
+                      form.reset({
+                        name: '',
+                        email: '',
+                        password: '',
+                        about: '',
+                        profileURL: '',
+                    });
                 }
             } catch (error: any) {
                 toast.error(error?.response?.data?.message || 'Server Error')

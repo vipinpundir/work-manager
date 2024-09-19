@@ -48,7 +48,7 @@ const Navbar = () => {
                                 <SheetTitle className='mb-3 text-sm' >
                                     <CircleUserRound size={36} />
                                     {context?.user ? <><p>Name: {context?.user?.name} </p>
-                                        <p>Email: {context?.user?.email} </p></> : 'login to see more details.'}
+                                        <p>Email:{context?.user?.email} </p></> : 'login to see more details.'}
                                 </SheetTitle>
                                 <ol className='flex flex-col gap-2' >
                                     <li>

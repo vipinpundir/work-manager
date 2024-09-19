@@ -40,13 +40,18 @@ const TaskForm = () => {
 
     const onSubmit = async (data: TaskData) => {
         data.userId = user?._id || ''
-        console.log(data, 'data', user?._id)
         if (data?.title?.length > 0 && data?.content?.length > 0) {
             setLoading(true)
             try {
                 const response = await taskService.addTask(data);
                 if (response.status) {
                     toast.success(response.message);
+                      // Reset the form after successful submission
+                      form.reset({
+                        title: "",
+                        content: "",
+                        status: "pending", // Reset to the default value
+                    });
                 } else {
                     toast.error(response.message);
                 }

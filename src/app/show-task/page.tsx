@@ -42,7 +42,7 @@ const ShowTask = () => {
   function formatDate(addedDate: Date): string {
     const date = new Date(addedDate);
 
-    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 
     const formattedDate = date.toLocaleDateString('en-GB', options);
 
@@ -54,16 +54,15 @@ const ShowTask = () => {
       <p className='text-3xl font-semibold'>Your tasks ({tasks.length}) </p>
       {tasks?.map((task: TaskData) => (
         <div key={task._id} className='flex items-center gap-5'>
-        {task.status == 'complete' ? <CircleCheckBig size={32} />  : <Clock7 size={32} />}
         <div className={`text-white p-2 mt-3 rounded-md w-full ${task.status == 'complete' ? "bg-green-800" : "bg-gray-800"}`}>
          <div className="flex justify-between">
          <h3 className='text-xl font-semibold mb-1'>{task.title}</h3> 
-         <span onClick={()=>deleteTask(task._id)} className='flex justify-center items-center cursor-pointer bg-gray-950 rounded-full h-8 w-8'><X size={22}/></span>
+         <span onClick={()=>deleteTask(task._id)} className='flex justify-center items-center cursor-pointer bg-gray-950 rounded-full h-7 w-7'><X size={18}/></span>
          </div>
           <p>{task.content}</p>
           <span className='flex justify-between'>
-            <p>Status: <strong>{task.status}</strong> </p>
-            <p>Date: <strong>{formatDate(task.addedDate)}</strong> </p>
+            <p className='flex items-center' >Status: <strong className='mr-1' >{task.status}</strong> {task.status == 'complete' ? <CircleCheckBig size={20} />  : <Clock7 size={20} />} </p>
+            <p>Date:<strong>{formatDate(task.addedDate)}</strong> </p>
           </span>
         </div>
         </div>
