@@ -3,13 +3,15 @@ import { Button } from '@/components/ui/button';
 import { UserContext } from '@/context/userContext';
 import taskService from '@/services/taskService';
 import { TaskData } from '@/types';
-import { CircleCheckBig, Clock7, X } from 'lucide-react';
+import { CircleCheckBig, Clock7, Loader, X } from 'lucide-react';
 import React, { useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 
 const ShowTask = () => {
   const { user } = useContext(UserContext)
   const [tasks, setTasks] = useState([])
+  const [loading, setLoading] = useState(true)
+
 
   const fetchTasks = async (userId: string) => {
     try {
@@ -17,6 +19,8 @@ const ShowTask = () => {
       setTasks(response?.data?.reverse())
     } catch (error) {
 
+    }finally{
+      setLoading(false)
     }
   }
 
@@ -52,6 +56,7 @@ const ShowTask = () => {
   return (
     <section className='md:w-3/5 m-auto'>
       <p className='text-3xl font-semibold'>Your tasks ({tasks.length}) </p>
+      {loading && <p className='w-10 m-auto flex items-center'>loading... <span className='animate-spin' ><Loader /></span></p>}
       {tasks?.map((task: TaskData) => (
         <div key={task._id} className='flex items-center gap-5'>
         <div className={`text-white p-2 mt-3 rounded-md w-full ${task.status == 'complete' ? "bg-green-800" : "bg-gray-800"}`}>
